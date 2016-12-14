@@ -94,7 +94,7 @@
         [self.server startWithPort:port bonjourName:nil];
 
         // Update the startPage (supported in cordova-ios 3.7.0, see https://issues.apache.org/jira/browse/CB-7857)
-		vc.startPage = [NSString stringWithFormat:@"http://localhost:%lu/%@/%@?%@", (unsigned long)self.server.port, appBasePath, indexPage, authToken];
+        vc.startPage = [NSString stringWithFormat:@"http://localhost:%lu/%@/%@?%@", (unsigned long)self.server.port, appBasePath, indexPage, authToken];
 
     } else {
         if (requirementsOK) {
@@ -262,6 +262,7 @@
         NSString* filePath = [directoryPath stringByAppendingPathComponent:[request.path substringFromIndex:basePath.length]];
         BOOL isDataDirectory = [filePath containsString: @"mobile/Containers/Data"];
         if (isDataDirectory) {
+            filePath = [filePath stringByReplacingOccurrencesOfString: @"file:///" withString: @""];
             filePath = [filePath stringByReplacingOccurrencesOfString: directoryPath withString: @""];
             filePath = [filePath stringByReplacingOccurrencesOfString: @"/www" withString: @""];
         };
